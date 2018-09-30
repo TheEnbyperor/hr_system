@@ -1,0 +1,137 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{minted}
+\usepackage{hyperref}
+
+\author{Q Misell}
+\title{HR System code documention}
+
+\usemintedstyle{rainbow_dash}
+
+\begin{document}
+
+\pagenumbering{gobble}
+\maketitle
+\newpage
+
+\pagenumbering{Roman}
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Base information on the system}
+The webserver is Django 2.1. Documentation for Django is available \href{https://docs.djangoproject.com/en/2.1/}{here}.
+
+The HTML templates support the Django templating language, whose documentation is available \href{https://docs.djangoproject.com/en/2.1/topics/templates/}{here}. Bootstrap is also included in the template base, whose documentation is \href{http://getbootstrap.com/docs/4.1/layout/overview/}{here}.
+
+The \textbf{hr\_system} run configuration in PyCharm (shown in the top-right of the IDE) will start a webserver running locally using a local database on \url{http://localhost:8001}. This configuration also runs a database migration before starting.
+
+A migration can also be applied without restarting the webserver using the \textbf{Migrate} run configuration.
+
+The \textbf{Make migrations} run configuration will instruct Django to create the database migrations based off of the models defined in python. This should be run after making any changes to the models (usually in the \textit{models.py} file of every app).
+
+\section{Adding a new app}
+Open a shell (Command prompt, terminal, etc).
+Make sure you are in the project venv.
+\mint{bash}|./venv/bin/activate|
+
+Create a new Django app. The app name must be all one word. In the following steps holiday will be used however this should be replaced with the chosen app name where appropriate.
+\mint{bash}|python3 manage.py startapp <app name here eg. holiday>|
+
+Add the app to the Django settings file.\\
+File: \textit{hr\_system/settings.py}
+\begin{minted}{python}
+
+INSTALLED_APPS = [
+    ...
+    'holiday.apps.HolidayConfig',
+]
+\end{minted}
+
+Add a human readable name to the app, and tell the HR system that this app should be in the menu.\\
+File: \textit{holiday/apps.py}
+\begin{minted}{python}
+from django.apps import AppConfig
+
+
+class HolidayConfig(AppConfig):
+    name = 'holiday'
+    # Add these two
+    verbose_name = 'Holiday'
+    in_menu = True
+\end{minted}
+
+Create the index template file.\\
+File: \textit{holiday/templates/holiday/index.html}
+\begin{minted}{html+django}
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page content goes here -->
+    <div class="container">
+        <h1>Holiday</h1>
+    </div>
+{% endblock %}
+\end{minted}
+
+Create the view for the index page.\\
+File: \textit{holiday/views.py}
+\begin{minted}{python}
+from django.shortcuts import render
+
+
+def index(request):
+    return render(request, "holiday/index.html")
+\end{minted}
+
+Create app's url defintions file and add the index page to it.\\
+File: \textit{holiday/urls.py}
+\begin{minted}{python}
+from django.urls import path
+from . import views
+
+app_name = 'holiday'
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+\end{minted}
+
+\section{Adding a model}
+A model is used to store data in the database. Django handles the interfacing to the database, so you don't have to. Let's create an model to store holiday.
+
+In the models file create an empty model class.\\
+File: \textit{holiday/models.py}
+\begin{minted}{python}
+from django.db import models
+
+class HolidayLeave(models.Model):
+	pass
+\end{minted}
+
+Add some fields, these could be various things like a textbox, an email, a number, etc. For a complete list see the Django documentation \href{https://docs.djangoproject.com/en/2.1/ref/models/fields/#field-types}{here}.
+\begin{minted}{python}
+class HolidayLeave(models.Model):
+	start = models.DateField()
+	end = models.DateField()
+\end{minted}
+
+You may wish to link your model to a different model, this can be acomplished with a $ForeignKey$. If this model is in a different app you can simply import it. Don't forget to tell Django what to do when the referenced model is deleted from the database (see \href{https://docs.djangoproject.com/en/2.1/ref/models/fields/#django.db.models.ForeignKey.on_delete}{here} for a description of possible options), and to give a way to access this model from the referenced model (see \href{https://docs.djangoproject.com/en/2.1/ref/models/fields/#django.db.models.ForeignKey.related_name}{here} for documentation on that).
+\begin{minted}{python}
+import employees.models
+
+class HolidayLeave(models.Model):
+	...
+	employee = 
+	  models.ForeignKey(employees.models.Employee,
+	                    on_delete=models.CASCADE,
+	                    related_name="holiday_leave")
+\end{minted}
+
+After defining your model don't forget to run the \textbf{Make migrations} and \textbf{Migrate} run configurations in PyCharm to update the database.
+
+\end{document}

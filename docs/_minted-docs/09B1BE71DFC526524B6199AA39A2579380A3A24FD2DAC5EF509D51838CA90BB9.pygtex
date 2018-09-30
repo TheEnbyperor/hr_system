@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{HolidayLeave}\PYG{p}{(}\PYG{n}{models}\PYG{o}{.}\PYG{n}{Model}\PYG{p}{):}
+	\PYG{n}{start} \PYG{o}{=} \PYG{n}{models}\PYG{o}{.}\PYG{n}{DateField}\PYG{p}{()}
+	\PYG{n}{end} \PYG{o}{=} \PYG{n}{models}\PYG{o}{.}\PYG{n}{DateField}\PYG{p}{()}
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{django.db} \PYG{k+kn}{import} \PYG{n}{models}
+
+\PYG{k}{class} \PYG{n+nc}{HolidayLeave}\PYG{p}{(}\PYG{n}{models}\PYG{o}{.}\PYG{n}{Model}\PYG{p}{):}
+	\PYG{k}{pass}
+\end{Verbatim}
