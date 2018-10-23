@@ -19,6 +19,7 @@ from django.apps import apps as django_apps
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', include('main_site.urls', namespace='main_site')),
 ]
 
