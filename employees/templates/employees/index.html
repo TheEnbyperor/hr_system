@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Employee managment</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for employee in employees %}
+                        <tr>
+                            <th scope="row">{{ employee.id }}</th>
+                            <td><a href="{% url 'employees:view_employee' employee.id %}">{{ employee.name }}</a></td>
+                            <td>
+                                <a href="{% url "employees:edit_employee" employee.id %}" class="btn btn-primary">
+                                    Edit
+                                </a>
+                                <a href="{% url 'employees:delete_employee' employee.id %}" class="btn btn-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
