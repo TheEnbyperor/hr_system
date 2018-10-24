@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'main_site.apps.MainSiteConfig',
     'employees.apps.EmployeesConfig',
+    'holiday.apps.HolidayConfig',
 ]
 
 MIDDLEWARE = [
