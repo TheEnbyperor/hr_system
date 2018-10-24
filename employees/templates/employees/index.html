@@ -8,7 +8,7 @@
             <div class="col">
                 <h1>Employee managment</h1>
             </div>
-            {% if perms.employees.add_employee %}
+            {% if perms.auth.add_user %}
                 <div class="col-1">
                     <a href="{% url 'employees:add_employee' %}" class="btn btn-success">Add</a>
                 </div>
@@ -36,7 +36,7 @@
                             <td>{{ employee.last_name }}</td>
                             <td>{{ employee.email }}</td>
                             <td>
-                                {% if perms.employees.change_employee %}
+                                {% if perms.auth.change_user %}
                                     <a href="{% url "employees:edit_employee" employee.id %}" class="btn btn-primary">
                                         Edit
                                     </a>
@@ -44,8 +44,54 @@
                                         Change password
                                     </a>
                                 {% endif %}
-                                {% if perms.employees.delete_employee %}
+                                {% if perms.auth.delete_user %}
                                     <a href="{% url 'employees:delete_employee' employee.id %}" class="btn btn-danger">
+                                        Delete
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h1>Groups</h1>
+            </div>
+            {% if perms.auth.add_group %}
+                <div class="col-1">
+                    <a href="{% url 'employees:add_group' %}" class="btn btn-success">Add</a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for group in groups %}
+                        <tr>
+                            <th scope="row">
+                                <a href="{% url 'employees:view_group' group.id %}">{{ group.id }}</a>
+                            </th>
+                            <td>{{ group.name }}</td>
+                            <td>
+                                {% if perms.auth.change_group %}
+                                    <a href="{% url "employees:edit_group" group.id %}" class="btn btn-primary">
+                                        Edit
+                                    </a>
+                                {% endif %}
+                                {% if perms.auth.delete_group %}
+                                    <a href="{% url 'employees:delete_group' group.id %}" class="btn btn-danger">
                                         Delete
                                     </a>
                                 {% endif %}
