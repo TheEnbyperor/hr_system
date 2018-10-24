@@ -40,6 +40,9 @@
                                     <a href="{% url "employees:edit_employee" employee.id %}" class="btn btn-primary">
                                         Edit
                                     </a>
+                                    <a href="{% url "employees:employee_change_password" employee.id %}" class="btn btn-secondary">
+                                        Change password
+                                    </a>
                                 {% endif %}
                                 {% if perms.employees.delete_employee %}
                                     <a href="{% url 'employees:delete_employee' employee.id %}" class="btn btn-danger">

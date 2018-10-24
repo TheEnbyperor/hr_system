@@ -25,7 +25,10 @@
                 </li>
             {% endfor %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+                <a class="nav-link" href="{% url 'password_change'%}">Change password</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout'%}">Logout</a>
             </li>
         {% else %}
             <li class="nav-item">
