@@ -1,6 +1,11 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required
+from . import models
 
 
-# Create your views here.
+@permission_required("holiday.view_holiday")
 def index(request):
-    return render(request, "holiday/index.html")
+    holiday = models.Holiday.objects.all()
+    return render(request, "holiday/index.html", {
+        "holiday": holiday
+    })
