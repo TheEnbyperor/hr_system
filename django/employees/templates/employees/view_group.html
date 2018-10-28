@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Group #{{ employee.id }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                  <tbody>
+                        <tr>
+                          <th scope="row">Name</th>
+                          <td>{{ group.name }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Permissions</th>
+                          <td>
+                              {% for perm in group.permissions.all %}
+                                  {{ perm }}
+                                  {% if not forloop.last %}
+                                      <br>
+                                  {% endif %}
+                              {% endfor %}
+                          </td>
+                        </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href="{% url "employees:edit_group" group.id %}" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{INSTALLED\PYGZus{}APPS} \PYG{o}{=} \PYG{p}{[}
+    \PYG{o}{...}
+    \PYG{l+s+s1}{\PYGZsq{}holiday.apps.HolidayConfig\PYGZsq{}}\PYG{p}{,}
+\PYG{p}{]}
+\end{Verbatim}

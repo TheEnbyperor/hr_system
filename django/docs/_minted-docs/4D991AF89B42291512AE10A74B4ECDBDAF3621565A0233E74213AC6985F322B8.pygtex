@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+python3 manage.py startapp \PYGZlt{}app name here eg. holiday\PYGZgt{}
+\end{Verbatim}

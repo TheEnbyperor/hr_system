@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Login</h1>
+            </div>
+        </div>
+        {% if next %}
+            <div class="row">
+                <div class="col">
+                    {% if user.is_authenticated %}
+                        <div class="alert alert-info alert-block">
+                            Your account doesn't have access to this page. To proceed,
+                            please login with an account that has access.
+                        </div>
+                    {% else %}
+                        <p class="alert alert-info alert-block">
+                            Please login to see this page.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <input type="submit" class="btn btn-success" value="Login"/>
+                    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+{% endblock %}
